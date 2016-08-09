@@ -61,6 +61,7 @@ body {
 #d-calc-1 {
   margin: auto; }
 
+/* deposit calculator */
 .deposit-calculator {
   width: 640px;
   font-family: "Open Sans", "Tahoma", sans-serif;
@@ -71,6 +72,7 @@ body {
   color: #eb2920;
   margin-bottom: 20px; }
 
+/* left column (controls)*/
 .d-c-controls {
   float: left; }
 
@@ -137,6 +139,7 @@ body {
   -moz-box-shadow: none;
   box-shadow: none; }
 
+/* slider*/
 .d-c-slider {
   position: relative;
   border-top: 1px #f0f0f0 dashed; }
@@ -242,6 +245,9 @@ body {
   position: absolute;
   right: 0; }
 
+/* end slider */
+/* end left column (controls)*/
+/* right column (result)*/
 .d-c-result {
   margin-left: 430px;
   position: relative; }
@@ -272,5 +278,8 @@ body {
 .d-c-result__wallet {
   position: relative;
   left: -10px; }
+
+/* end right column (result)*/
+/* end deposit calculator */
 
 /*# sourceMappingURL=style.css.map */
