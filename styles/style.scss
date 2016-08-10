@@ -115,6 +115,7 @@ body{
   font-size: 10px;
   @include m-button-box-shadow();
   //font-weight: 800;
+  outline: none;
 }
 .d-c-period-button:first-child
 {
@@ -155,6 +156,7 @@ body{
   left: 260px;
   width: 60px;
   text-align: center;
+  cursor: pointer;
 }
 .d-c-slider__bubble::after {
   top: 100%;
@@ -216,6 +218,11 @@ body{
   position: absolute;
   bottom: -5px;
   left: 278px;
+}
+.d-c-slider__click-area{
+  width: 100%;
+  height: 20px;
+  position: absolute;
 }
 
 .d-c-slider__min,
