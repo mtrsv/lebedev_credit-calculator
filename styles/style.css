@@ -61,6 +61,7 @@ body {
 #d-calc-1 {
   margin: auto; }
 
+/* deposit calculator */
 .deposit-calculator {
   width: 640px;
   font-family: "Open Sans", "Tahoma", sans-serif;
@@ -71,6 +72,7 @@ body {
   color: #eb2920;
   margin-bottom: 20px; }
 
+/* left column (controls)*/
 .d-c-controls {
   float: left; }
 
@@ -108,7 +110,8 @@ body {
   font-size: 10px;
   -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5); }
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.5);
+  outline: none; }
 
 .d-c-period-button:first-child {
   border-bottom-left-radius: 4px;
@@ -137,6 +140,7 @@ body {
   -moz-box-shadow: none;
   box-shadow: none; }
 
+/* slider*/
 .d-c-slider {
   position: relative;
   border-top: 1px #f0f0f0 dashed; }
@@ -152,7 +156,10 @@ body {
   padding: 3px 5px;
   position: absolute;
   top: -20px;
-  left: 260px; }
+  left: 260px;
+  width: 60px;
+  text-align: center;
+  cursor: pointer; }
 
 .d-c-slider__bubble::after {
   top: 100%;
@@ -231,6 +238,11 @@ body {
   bottom: -5px;
   left: 278px; }
 
+.d-c-slider__click-area {
+  width: 100%;
+  height: 20px;
+  position: absolute; }
+
 .d-c-slider__min,
 .d-c-slider__max {
   position: absolute;
@@ -242,6 +254,9 @@ body {
   position: absolute;
   right: 0; }
 
+/* end slider */
+/* end left column (controls)*/
+/* right column (result)*/
 .d-c-result {
   margin-left: 430px;
   position: relative; }
@@ -272,5 +287,8 @@ body {
 .d-c-result__wallet {
   position: relative;
   left: -10px; }
+
+/* end right column (result)*/
+/* end deposit calculator */
 
 /*# sourceMappingURL=style.css.map */
