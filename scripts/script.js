@@ -2,21 +2,63 @@
 // 2016
 
 (function(global){
+    document.addEventListener("DOMContentLoaded", onDomLoad);
+
+    var calculatorElement,
+        calculatorSlider,
+        calculator;
+
+    function onDomLoad(){
+        addIePolyfills();
+
+        calculatorElement = document.querySelector("#d-calc-1");
+
+        calculatorSlider = new Slider({
+            elem: calculatorElement.querySelector(".d-c-slider__body"),
+            thumb: calculatorElement.querySelector(".d-c-slider__thumb"),
+            progress: calculatorElement.querySelector(".d-c-slider__progress"),
+            progressRight: calculatorElement.querySelector(".d-c-slider__bright-box"),
+            bubble: calculatorElement.querySelector(".d-c-slider__bubble"),
+            clickAreas:[
+                calculatorElement.querySelector(".d-c-slider__background"),
+                calculatorElement.querySelector(".d-c-slider__bright-box"),
+                calculatorElement.querySelector(".d-c-slider__click-area")
+            ],
+            max: 1000000,
+            min: 30000,
+            step: 1000,
+            currentPosition: 30000,
+            throttledDispatch: 100
+        });
+
+        calculator = new DepositCalculator({
+            elem: calculatorElement,
+            slider: calculatorSlider,
+            depositElement: calculatorElement.querySelector(".d-c-result__deposit"),
+            resultElement: calculatorElement.querySelector(".d-c-result__final-summ"),
+            bubbleElement: calculatorElement.querySelector(".d-c-slider__bubble"),
+            buttonsContainer: calculatorElement.querySelector(".d-c-period-button-container"),
+            periods: [1, 3, 6],
+            yearProfit: 6.4,
+            periodName: "мес"
+        });
+    }
+
     function Slider(options){
         var sliderElem = options.elem,
-            thumbElem = options.thumb || sliderElem.children[0],
-            progressElem = options.progress || null,
-            progressElemRight = options.progressRight || null,
-            bubbleElem = options.bubble || null,
-            clickAreas = options.clickAreas || [],
-            max = options.max || 100,
-            min = options.min || 0,
-            step = options.step || 1,
-            currentPosition = options.currentPosition || 0,
-            coef = (sliderElem.offsetWidth - thumbElem.offsetWidth)/(max - min),
-            newLeft,
-            isDrag = false,
-            throttledDispatch; //dispatch not often than throttledDispatch
+          thumbElem = options.thumb || sliderElem.children[0],
+          progressElem = options.progress || null,
+          progressElemRight = options.progressRight || null,
+          bubbleElem = options.bubble || null,
+          clickAreas = options.clickAreas || [],
+          max = options.max || 100,
+          min = options.min || 0,
+          step = options.step || 1,
+          currentPosition = options.currentPosition || 0,
+          coef = (sliderElem.offsetWidth - thumbElem.offsetWidth)/(max - min),
+          newLeft,
+          isDrag = false,
+          throttledDispatch; //dispatch not often than throttledDispatch
 
         if (options.throttle) {
             throttledDispatch = throttle(dispatchEvent,options.throttle);
@@ -125,8 +167,8 @@
         function throttle(func, ms) {
 
             var isThrottled = false,
-                savedArgs,
-                savedThis;
+              savedArgs,
+              savedThis;
 
             function wrapper() {
 
@@ -177,17 +219,17 @@
 
     function DepositCalculator(options){
         var calculatorElement = options.calculatorElement,
-            slider = options.slider,
-            sliderElement = slider.sliderElement,
-            resultElement = options.resultElement,
-            depositElement = options.depositElement,
-            bubbleElement = options.bubbleElement,
-            buttonsContainer = options.buttonsContainer,
-            yearProfit = options.yearProfit || 146, // profit in percents/year
-            periods = options.periods || [1, 3, 6], //array of periods available
-            periodName = options.periodName || "мес",
-            currentPeriod,
-            currentValue;
+          slider = options.slider,
+          sliderElement = slider.sliderElement,
+          resultElement = options.resultElement,
+          depositElement = options.depositElement,
+          bubbleElement = options.bubbleElement,
+          buttonsContainer = options.buttonsContainer,
+          yearProfit = options.yearProfit || 146, // profit in percents/year
+          periods = options.periods || [1, 3, 6], //array of periods available
+          periodName = options.periodName || "мес",
+          currentPeriod,
+          currentValue;
 
         init();
 
@@ -218,10 +260,10 @@
 
         function getValueInText(value){
             return value.toLocaleString("ru",{
-                    style: "currency",
-                    currency: "RUB",
-                    minimumFractionDigits: 0
-                });
+                style: "currency",
+                currency: "RUB",
+                minimumFractionDigits: 0
+            });
         }
 
         function generateButtons(){
@@ -261,10 +303,10 @@
             window.CustomEvent = function(event, params) {
                 var evt;
                 params = params || {
-                        bubbles: false,
-                        cancelable: false,
-                        detail: undefined
-                    };
+                      bubbles: false,
+                      cancelable: false,
+                      detail: undefined
+                  };
                 evt = document.createEvent("CustomEvent");
                 evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
                 return evt;
@@ -279,9 +321,9 @@
 
             // определяем свойство
             Element.prototype.matches = Element.prototype.matchesSelector ||
-                Element.prototype.webkitMatchesSelector ||
-                Element.prototype.mozMatchesSelector ||
-                Element.prototype.msMatchesSelector;
+              Element.prototype.webkitMatchesSelector ||
+              Element.prototype.mozMatchesSelector ||
+              Element.prototype.msMatchesSelector;
 
         }
 
@@ -302,39 +344,5 @@
         }
 
     }
-
-    addIePolyfills();
-
-    var calculatorElement = document.querySelector("#d-calc-1");
-
-    var calculatorSlider = new Slider({
-        elem: calculatorElement.querySelector(".d-c-slider__body"),
-        thumb: calculatorElement.querySelector(".d-c-slider__thumb"),
-        progress: calculatorElement.querySelector(".d-c-slider__progress"),
-        progressRight: calculatorElement.querySelector(".d-c-slider__bright-box"),
-        bubble: calculatorElement.querySelector(".d-c-slider__bubble"),
-        clickAreas:[
-            calculatorElement.querySelector(".d-c-slider__background"),
-            calculatorElement.querySelector(".d-c-slider__bright-box"),
-            calculatorElement.querySelector(".d-c-slider__click-area")
-        ],
-        max: 1000000,
-        min: 30000,
-        step: 1000,
-        currentPosition: 30000,
-        throttledDispatch: 100
-    });
-
-    var calculator = new DepositCalculator({
-        elem: calculatorElement,
-        slider: calculatorSlider,
-        depositElement: calculatorElement.querySelector(".d-c-result__deposit"),
-        resultElement: calculatorElement.querySelector(".d-c-result__final-summ"),
-        bubbleElement: calculatorElement.querySelector(".d-c-slider__bubble"),
-        buttonsContainer: calculatorElement.querySelector(".d-c-period-button-container"),
-        periods: [1, 3, 6],
-        yearProfit: 6.4,
-        periodName: "мес"
-    });
 
 })(window);
